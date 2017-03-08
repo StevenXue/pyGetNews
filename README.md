@@ -10,9 +10,9 @@
 网易新闻(163)
 
 
-配置（在GetChinaNews.py中修改）：
+配置（在GetNews.py中修改）：
 ==
-defaultSiteList = ["ZXW","163"]        #新闻源站点设置，默认都获取
+defaultSiteList = ["ZXW","163"]    #新闻源站点设置，默认都获取
 
 命令执行说明：
 ==
