@@ -1,7 +1,7 @@
 #-*-coding=UTF-8-*-
 from sgmllib import SGMLParser
 
-class NewsParser(SGMLParser):
+class GetNewsParser(SGMLParser):
 	"""
 	继承SGMLParser
 	提取出新闻的正文内容
@@ -44,4 +44,4 @@ class NewsParser(SGMLParser):
 			self.getdata = False
 	def handle_data(self,text):
 		if self.getdata:
-			self.newsText.append(text)
+				self.newsText.append(text)

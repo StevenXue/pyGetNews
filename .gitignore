@@ -1,0 +1,17 @@
+*.py[cod]
+
+
+
+# C extensions
+
+*.so
+
+
+
+.project
+
+.pydevproject
+
+
+#file folder
+dataNews/
