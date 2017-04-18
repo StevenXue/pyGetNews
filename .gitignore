@@ -2,12 +2,6 @@
 
 
 
-# C extensions
-
-*.so
-
-
-
 .project
 
 .pydevproject
