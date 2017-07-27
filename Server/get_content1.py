@@ -1,14 +1,14 @@
 #coding:utf-8  
 #author:zhangyang  
 #date:2015-5-17  
-#´Ë³ÌĞòÓÃÓÚÅÀÈ¡ÈËÃñÈÕ±¨ÏÂµÄÊı¾İ×ÊÔ´¡£Ö÷Ò³ÃæĞèÒªÌáÈ¡°üÀ¨1946Äêµ½2003ÄêÖ®¼äËùÓĞÔÂ·İ  
-#´Î¼¶Ò³ÃæÊÇ¸÷¸öÔÂ·İµÄËùÓĞ±¨µÀ  
-#Ä©¼¶Ò³ÃæÊÇ±¨µÀÄÚÈİ  
+#æ­¤ç¨‹åºç”¨äºçˆ¬å–äººæ°‘æ—¥æŠ¥ä¸‹çš„æ•°æ®èµ„æºã€‚ä¸»é¡µé¢éœ€è¦æå–åŒ…æ‹¬1946å¹´åˆ°2003å¹´ä¹‹é—´æ‰€æœ‰æœˆä»½  
+#æ¬¡çº§é¡µé¢æ˜¯å„ä¸ªæœˆä»½çš„æ‰€æœ‰æŠ¥é“  
+#æœ«çº§é¡µé¢æ˜¯æŠ¥é“å†…å®¹  
   
 import urllib2,bs4,os,re  
 from time import clock  
   
-#¹ØÓÚbs4½âÎöurlµÄ·½·¨¿ÉÒÔ²Î¿´£ºhttp://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html  
+#å…³äºbs4è§£æurlçš„æ–¹æ³•å¯ä»¥å‚çœ‹ï¼šhttp://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html  
   
 starturl="http://rmrbw.info/"  
 testMonthURL="http://rmrbw.info/thread.php?fid=6"  
@@ -18,7 +18,7 @@ def getSoup(url):
     soup=bs4.BeautifulSoup(''.join(pape),'lxml')  
     return soup  
   
-#´ÓÖ÷Ò³ÃæÖĞ¶ÁÈ¡Ã¿Ò»ÄêÖĞÃ¿¸öÔÂµÄURL×é³ÉÒ»¸öURLLIST·µ»Ø£¬  
+#ä»ä¸»é¡µé¢ä¸­è¯»å–æ¯ä¸€å¹´ä¸­æ¯ä¸ªæœˆçš„URLç»„æˆä¸€ä¸ªURLLISTè¿”å›ï¼Œ  
 def getDataFromMainURL():  
     urllist=[]  
     mainSoup=getSoup(starturl)  
@@ -29,31 +29,31 @@ def getDataFromMainURL():
     return urllist  
   
   
-#´¦ÀíÃ¿Ò»¸öÔÂµÄÊ×Ò³Ãæ£¬°üÀ¨µÃµ½×ÜµÄ×ÓÒ³ÃæÊıºÍµ±Ç°ÎÄµµURL  
-#²¢°ÑËùÓĞ×ÓÒ³Ãæ·µ»ØµÄURLLIST×é³É×ÜµÄURLLIST  
-#¸ù¾İµÃµ½URLÎªÃ¿Ò»¸öÔÂ´´½¨µÄÒ»¸öÎÄ¼ş¼Ğ¡£  
+#å¤„ç†æ¯ä¸€ä¸ªæœˆçš„é¦–é¡µé¢ï¼ŒåŒ…æ‹¬å¾—åˆ°æ€»çš„å­é¡µé¢æ•°å’Œå½“å‰æ–‡æ¡£URL  
+#å¹¶æŠŠæ‰€æœ‰å­é¡µé¢è¿”å›çš„URLLISTç»„æˆæ€»çš„URLLIST  
+#æ ¹æ®å¾—åˆ°URLä¸ºæ¯ä¸€ä¸ªæœˆåˆ›å»ºçš„ä¸€ä¸ªæ–‡ä»¶å¤¹ã€‚  
 def getDataFromMonth(monthURL):  
     filepath=os.getcwd()+os.path.sep+"data"+os.path.sep  
     urllist=[]  
     soup=getSoup(monthURL)  
-    title=soup.find('a','fl')   #ÕÒµ½ÄêÔÂµÄ±êÇ©Î»ÖÃ  
+    title=soup.find('a','fl')   #æ‰¾åˆ°å¹´æœˆçš„æ ‡ç­¾ä½ç½®  
     month=title.contents[0]  
     curpath=os.getcwd()  
     #print month.encode('utf8')  
     datapath=curpath+os.path.sep+"data"+os.path.sep+month.encode('utf8')  
     if os.path.exists(datapath)==False:  
-        os.mkdir(datapath)                       #´´½¨ºÃµ±ÔÂÎÄ¼ş¼Ğ  
+        os.mkdir(datapath)                       #åˆ›å»ºå¥½å½“æœˆæ–‡ä»¶å¤¹  
   
     pages=soup.find('div','pages').contents[-1]  
-    totalpage=pages.split(' ')[3].split('/')[1]   #µÃµ½×ÜÒ³ÃæÊı  
+    totalpage=pages.split(' ')[3].split('/')[1]   #å¾—åˆ°æ€»é¡µé¢æ•°  
   
     for num in range(int(totalpage)):  
         curURL=monthURL+"&page="+str(num)  
         urllist+=getDocementList(curURL)  
-    print "ÒÑÔØÈëµ±Ç°ÔÂ·İµÄËùÓĞurllist"  
+    print "å·²è½½å…¥å½“å‰æœˆä»½çš„æ‰€æœ‰urllist"  
     return datapath,urllist  
   
-#µÃµ½µ±Ç°Ò³ÃæµÄÎÄµµURL×é³ÉURLLIST·µ»Ø  
+#å¾—åˆ°å½“å‰é¡µé¢çš„æ–‡æ¡£URLç»„æˆURLLISTè¿”å›  
 def getDocementList(curURL):  
     urllist=[]  
     curSoup=getSoup(curURL)  
@@ -61,10 +61,10 @@ def getDocementList(curURL):
     for item in res:  
         urllist.append(starturl+item['href'])  
   
-    print "ÒÑÔØÈëµ±Ç°Ò³ÃæµÄËùÓĞÎÄµµurl"  
+    print "å·²è½½å…¥å½“å‰é¡µé¢çš„æ‰€æœ‰æ–‡æ¡£url"  
     return urllist  
   
-#µÃµ½docementÖĞµÄÄÚÈİ²¢±£´æµ½ÎÄ¼şÖĞ  
+#å¾—åˆ°docementä¸­çš„å†…å®¹å¹¶ä¿å­˜åˆ°æ–‡ä»¶ä¸­  
 def getDocement(docURL):  
     docSoup=getSoup(docURL)  
     title=docSoup.find('h1','fl').get_text()  
@@ -83,7 +83,7 @@ def getDocement(docURL):
   
   
   
-#ÔÂ·İÒ³ÃæÏÂµÄ¿ØÖÆ³ÌĞò£¬ÊäÈëÎªÔÂ·İµÄURL¡£²¢°ÑÅÀÈ¡µÄÄÚÈİ·Ö±ğ´æÈëµ½ÎÄ¼şÖĞ  
+#æœˆä»½é¡µé¢ä¸‹çš„æ§åˆ¶ç¨‹åºï¼Œè¾“å…¥ä¸ºæœˆä»½çš„URLã€‚å¹¶æŠŠçˆ¬å–çš„å†…å®¹åˆ†åˆ«å­˜å…¥åˆ°æ–‡ä»¶ä¸­  
 def monthMain(monthURL):  
     start=clock()  
     datapath,urllist=getDataFromMonth(monthURL)  

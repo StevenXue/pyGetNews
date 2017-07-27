@@ -1,25 +1,25 @@
-#coding:utf-8
-#´Ë³ÌĞòÓÃÓÚÅÀÈ¡ÈËÃñÈÕ±¨ÏÂµÄÊı¾İ×ÊÔ´¡£Ö÷Ò³ÃæĞèÒªÌáÈ¡°üÀ¨1946Äêµ½2003ÄêÖ®¼äËùÓĞÔÂ·İ
-#´Î¼¶Ò³ÃæÊÇ¸÷¸öÔÂ·İµÄËùÓĞ±¨µÀ
-#Ä©¼¶Ò³ÃæÊÇ±¨µÀÄÚÈİ
-#Ê¹ÓÃ¶àÏß³ÌÌá¸ßÅÀÈ¡Ğ§ÂÊ
+# -*- coding:utf-8 -*-
+#æ­¤ç¨‹åºç”¨äºçˆ¬å–äººæ°‘æ—¥æŠ¥ä¸‹çš„æ•°æ®èµ„æºã€‚ä¸»é¡µé¢éœ€è¦æå–åŒ…æ‹¬1946å¹´åˆ°2003å¹´ä¹‹é—´æ‰€æœ‰æœˆä»½
+#æ¬¡çº§é¡µé¢æ˜¯å„ä¸ªæœˆä»½çš„æ‰€æœ‰æŠ¥é“
+#æœ«çº§é¡µé¢æ˜¯æŠ¥é“å†…å®¹
+#ä½¿ç”¨å¤šçº¿ç¨‹æé«˜çˆ¬å–æ•ˆç‡
 
-'''ÓÉÓÚÓĞ´óÁ¿µÄIO£¬¶àÏß³Ì¿ÉÒÔÌá¸ßÅÀÈ¡µÄĞ§ÂÊ¡£³öÓÚ²»Í¬¶ÓÁĞ´æ´¢²»Í¬urlºÍ¶ÔÓÚÅÀ³æ½øĞĞ·Ö¹¤µÄ³õÖÔ£¬ÕâÀïÊµÏÖÁËÁ½¸ö¶ÓÁĞshareMonthQueueºÍshareReportQueue¡£ÆäÖĞshareMonthQueue´æ´¢ËùÓĞÔÂ·İ³õÊ¼urlºÍ°üº¬µÄÆäËûÒ³Ãæ£¨Ò»¸öÔÂ·İÓĞºÜ¶àpage£¬Àı£º1946Äê5ÔÂ°üº¬30¸öpage£©¡£shareReportQueue´æ´¢ËùÓĞĞÂÎÅµÄurl¡£Á½¸ö¶ÓÁĞÓĞÆä×¨ÓÃµÄÅÀ³æmonthSpiderºÍreportSpider'''
+'''ç”±äºæœ‰å¤§é‡çš„IOï¼Œå¤šçº¿ç¨‹å¯ä»¥æé«˜çˆ¬å–çš„æ•ˆç‡ã€‚å‡ºäºä¸åŒé˜Ÿåˆ—å­˜å‚¨ä¸åŒurlå’Œå¯¹äºçˆ¬è™«è¿›è¡Œåˆ†å·¥çš„åˆè¡·ï¼Œè¿™é‡Œå®ç°äº†ä¸¤ä¸ªé˜Ÿåˆ—shareMonthQueueå’ŒshareReportQueueã€‚å…¶ä¸­shareMonthQueueå­˜å‚¨æ‰€æœ‰æœˆä»½åˆå§‹urlå’ŒåŒ…å«çš„å…¶ä»–é¡µé¢ï¼ˆä¸€ä¸ªæœˆä»½æœ‰å¾ˆå¤špageï¼Œä¾‹ï¼š1946å¹´5æœˆåŒ…å«30ä¸ªpageï¼‰ã€‚shareReportQueueå­˜å‚¨æ‰€æœ‰æ–°é—»çš„urlã€‚ä¸¤ä¸ªé˜Ÿåˆ—æœ‰å…¶ä¸“ç”¨çš„çˆ¬è™«monthSpiderå’ŒreportSpider'''
 
 import urllib2,bs4,os,re
 from time import clock
 import threading,Queue
 
-#¹ØÓÚbs4½âÎöurlµÄ·½·¨¿ÉÒÔ²Î¿´£ºhttp://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html
+#å…³äºbs4è§£æurlçš„æ–¹æ³•å¯ä»¥å‚çœ‹ï¼šhttp://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html
 
 starturl="http://rmrbw.info/"
-shareMonthQueue=Queue.Queue()  #´æ´¢ÔÂ·İurlµÄ¹«¹²¶ÓÁĞ
-shareReportQueue=Queue.Queue() #c´æ´¢ĞÂÎÅurlµÄ¹«¹²¶ÓÁĞ
-_WORK_MONTH_THREAD_NUM=3       #ÓÃÓÚ´¦ÀíÔÂ·İurlµÄÅÀ³æÊıÁ¿
-_WORK_REPORT_THREAD_NUM_=10    #ÓÃÓÚ´¦ÀíĞÂÎÅurlµÄÅÀ³æÊıÁ¿
-totalNum=0  #È«¾Ö¼ÆÊıÆ÷
-mutex=threading.Lock() #»¥³âËø
-tlist=[]<span style="white-space:pre">	</span>#Ïß³ÌÁĞ±í
+shareMonthQueue=Queue.Queue()  #å­˜å‚¨æœˆä»½urlçš„å…¬å…±é˜Ÿåˆ—
+shareReportQueue=Queue.Queue() #cå­˜å‚¨æ–°é—»urlçš„å…¬å…±é˜Ÿåˆ—
+_WORK_MONTH_THREAD_NUM=3       #ç”¨äºå¤„ç†æœˆä»½urlçš„çˆ¬è™«æ•°é‡
+_WORK_REPORT_THREAD_NUM_=10    #ç”¨äºå¤„ç†æ–°é—»urlçš„çˆ¬è™«æ•°é‡
+totalNum=0  #å…¨å±€è®¡æ•°å™¨
+mutex=threading.Lock() #äº’æ–¥é”
+tlist=[]  #çº¿ç¨‹åˆ—è¡¨ <span style="white-space:pre">	</span>
 t1=clock()
 t2=clock()
 t3=clock()
@@ -46,31 +46,31 @@ class monthSplider(threading.Thread):
 					print "loading url error at line 43"
 					print e
 					continue
-				title=soup.find('a','fl')   #ÕÒµ½ÄêÔÂµÄ±êÇ©Î»ÖÃ
+				title=soup.find('a','fl')   #æ‰¾åˆ°å¹´æœˆçš„æ ‡ç­¾ä½ç½®
 				month=title.contents[0]
 				curpath=os.getcwd()
 				#print month.encode('utf8')
 				datapath=self.dicPath+month.encode('gbk')
 				if os.path.exists(datapath)==False:
-					os.mkdir(datapath)                       #´´½¨ºÃµ±ÔÂÎÄ¼ş¼Ğ
+					os.mkdir(datapath)                       #åˆ›å»ºå¥½å½“æœˆæ–‡ä»¶å¤¹
 
 				pages=soup.find('div','pages').contents[-1]
-				totalpage=pages.split(' ')[3].split('/')[1]   #µÃµ½×ÜÒ³ÃæÊı
+				totalpage=pages.split(' ')[3].split('/')[1]   #å¾—åˆ°æ€»é¡µé¢æ•°
 				templist=monthurl.split('=')
 				curpage=templist[-1]
-				curpage=int(curpage.strip())              #µÃµ½µ±Ç°Ò³ÃæÖµ
+				curpage=int(curpage.strip())              #å¾—åˆ°å½“å‰é¡µé¢å€¼
 		
-				#ÅĞ¶ÏÈç¹ûcurpageĞ¡ÓÚtotalpage£¬Ôò°Ñcurpage+1µÃµ½ÏÂÒ»¸öÒ³Ãæ·ÅÈëshareMonthQueueÖĞ
+				#åˆ¤æ–­å¦‚æœcurpageå°äºtotalpageï¼Œåˆ™æŠŠcurpage+1å¾—åˆ°ä¸‹ä¸€ä¸ªé¡µé¢æ”¾å…¥shareMonthQueueä¸­
 				if curpage<totalpage:
 					templist[-1]=str(curpage+1)
 					nexturl='='.join(templist)
 					shareMonthQueue.put(nexturl)
-				#»ñÈ¡µ±Ç°Ò³ÃæËùÓĞĞÂÎÅµÄurl,²¢°Ñurl·ÅÈëshareReportQueueÀï
+				#è·å–å½“å‰é¡µé¢æ‰€æœ‰æ–°é—»çš„url,å¹¶æŠŠurlæ”¾å…¥shareReportQueueé‡Œ
 				res=soup.find_all(id=re.compile("a_ajax_"))
 				for item in res:
 					shareReportQueue.put(starturl+item['href'])
 			else:
-				#ÔÚshareMonthQueueÎª¿ÕµÄÇé¿öÏÂµÈ´ıTIMEOUTÃëºóÍË³ö
+				#åœ¨shareMonthQueueä¸ºç©ºçš„æƒ…å†µä¸‹ç­‰å¾…TIMEOUTç§’åé€€å‡º
 				end=clock()
 				if (end-start)>self.TIMEOUT:
 					break
@@ -96,14 +96,14 @@ class reportSpider(threading.Thread):
 					print "loading url error at line 93"
 					print e
 					continue
-				month=soup.find('a',href=re.compile('thread.php')).get_text().strip() #½âÎöµ±Ç°ÍøÒ³ËùÔÚÄêÔÂ
+				month=soup.find('a',href=re.compile('thread.php')).get_text().strip() #è§£æå½“å‰ç½‘é¡µæ‰€åœ¨å¹´æœˆ
 				month=month.encode('gbk')
-				title=soup.find('h1','fl').get_text() #½âÎöµ±Ç°ÍøÒ³µÄĞÂÎÅ±êÌâ
+				title=soup.find('h1','fl').get_text() #è§£æå½“å‰ç½‘é¡µçš„æ–°é—»æ ‡é¢˜
 
 				title=title.strip().split(' ')[0]
 				#print title.encode('utf8')
 				cont_div=soup.find('div','tpc_content')
-				cont=cont_div.get_text().strip()   #½âÎöµ±Ç°ÍøÒ³µÄĞÂÎÅÄÚÈİ
+				cont=cont_div.get_text().strip()   #è§£æå½“å‰ç½‘é¡µçš„æ–°é—»å†…å®¹
 				title=title.encode('gbk')
 				cont=cont.encode('gbk')
 				try:
@@ -118,11 +118,11 @@ class reportSpider(threading.Thread):
 				if mutex.acquire(1):
 					totalNum+=1
 					mutex.release()
-				#print self.name+"´¦ÀíÁËÒ»¸öÒ³Ãæ"
+				#print self.name+"å¤„ç†äº†ä¸€ä¸ªé¡µé¢"
 				if totalNum%100==0:
 					global t3,t4
 					t4=clock()
-					print "ÒÑ´¦ÀíÁË"+str(totalNum)+"ÌõÊı¾İ,ÓÃÊ±"+str(t4-t3)+'s'
+					print "å·²å¤„ç†äº†"+str(totalNum)+"æ¡æ•°æ®,ç”¨æ—¶"+str(t4-t3)+'s'
 			else:
 				end=clock()
 				if (end-start)>self.TIMEOUT:
@@ -139,7 +139,7 @@ def main():
 		monthurl=item['href']+'&page=1'
 		shareMonthQueue.put(starturl+monthurl)
 	t2=clock()
-	print "Ö÷Ò³ÃæÅÀÈ¡Íê³É£¬ÓÃÊ±"+str(t2-t1)+'s'
+	print "ä¸»é¡µé¢çˆ¬å–å®Œæˆï¼Œç”¨æ—¶"+str(t2-t1)+'s'
 
 	for i in xrange(_WORK_REPORT_THREAD_NUM_):
 		if i<_WORK_MONTH_THREAD_NUM:
@@ -148,7 +148,7 @@ def main():
 		rs=reportSpider('rs'+str(i))
 		tlist.append(rs)
 	t3=clock()
-	print "ÅÀ³æ×¼±¸¾ÍĞ÷,ÓÃÊ±"+str(t3-t2)+'s'
+	print "çˆ¬è™«å‡†å¤‡å°±ç»ª,ç”¨æ—¶"+str(t3-t2)+'s'
 	for t in tlist:
 		t.start()
 	for t in tlist:
